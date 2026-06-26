@@ -1,14 +1,14 @@
 #pragma once
-#include <JAZZY/Core/Core.h>
-#include <JAZZY/Core/Base.h>
-#include <JAZZY/Math/Vec3.h>
-#include <JAZZY/Math/Vec4.h>
-#include <JAZZY/Math/Mat4x4.h>
+#include <DX3D/Core/Core.h>
+#include <DX3D/Core/Base.h>
+#include <DX3D/Math/Vec3.h>
+#include <DX3D/Math/Vec4.h>
+#include <DX3D/Math/Mat4x4.h>
 #include <vector>
 
-#include <JAZZY/Cube.h>
+#include <DX3D/Cube.h>
 
-namespace jazzy
+namespace dx3d
 {
 	// Final means no class can derive from GraphicsEngine class
 	class GraphicsEngine final : public Base

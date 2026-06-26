@@ -1,8 +1,8 @@
 #pragma once
-#include "JAZZY/Graphics/GraphicsResource.h"
-#include <JAZZY/Math/Vec4.h>
+#include "DX3D/Graphics/GraphicsResource.h"
+#include <DX3D/Math/Vec4.h>
 
-namespace jazzy
+namespace dx3d
 {
 	class DeviceContext final : public GraphicsResource
 	{

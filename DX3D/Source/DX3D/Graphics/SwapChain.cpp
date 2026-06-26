@@ -1,6 +1,6 @@
-#include <JAZZY/Graphics/SwapChain.h>
+#include <DX3D/Graphics/SwapChain.h>
 
-jazzy::SwapChain::SwapChain(const SwapChainDesc& desc, const GraphicsResourceDesc& gDesc) :
+dx3d::SwapChain::SwapChain(const SwapChainDesc& desc, const GraphicsResourceDesc& gDesc) :
 	GraphicsResource(gDesc), m_size(desc.winSize)
 {
 	if (!desc.winHandle) DX3DLogThrowInvalidArg("No window handle provided.");
@@ -25,12 +25,12 @@ jazzy::SwapChain::SwapChain(const SwapChainDesc& desc, const GraphicsResourceDes
 	reloadBuffers();
 }
 
-jazzy::Rect jazzy::SwapChain::getSize() const noexcept
+dx3d::Rect dx3d::SwapChain::getSize() const noexcept
 {
 	return m_size;
 }
 
-void jazzy::SwapChain::present(bool vsync)
+void dx3d::SwapChain::present(bool vsync)
 {
 	DX3DGraphicsLogThrowOnFail
 	(
@@ -39,7 +39,7 @@ void jazzy::SwapChain::present(bool vsync)
 	);
 }
 
-void jazzy::SwapChain::reloadBuffers()
+void dx3d::SwapChain::reloadBuffers()
 {
 	Microsoft::WRL::ComPtr <ID3D11Texture2D> buffer{};
 	DX3DGraphicsLogThrowOnFail

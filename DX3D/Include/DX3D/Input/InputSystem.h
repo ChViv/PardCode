@@ -1,10 +1,10 @@
 #pragma once
-#include <JAZZY/Core/Base.h>
-#include <JAZZY/Math/Vec2.h>
+#include <DX3D/Core/Base.h>
+#include <DX3D/Math/Vec2.h>
 #include <array>
 
 
-namespace jazzy
+namespace dx3d
 {
 	class InputSystem final : public Base
 	{

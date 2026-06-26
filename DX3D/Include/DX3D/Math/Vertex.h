@@ -1,7 +1,7 @@
 #pragma once
-#include <JAZZY/Math/Vec3.h>
-#include <JAZZY/Math/Vec4.h>
-namespace jazzy
+#include <DX3D/Math/Vec3.h>
+#include <DX3D/Math/Vec4.h>
+namespace dx3d
 {
 	struct Vertex
 	{

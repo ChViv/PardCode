@@ -11,7 +11,7 @@ int main()
 
 	try
 	{
-		jazzy::Game game({ {zzWindowDisplayWidth, zzWindowDisplayHeight}, jazzy::Logger::LogLevel::Info });
+		dx3d::Game game({ {zzWindowDisplayWidth, zzWindowDisplayHeight}, dx3d::Logger::LogLevel::Info });
 		game.run();
 	}
 	catch (const std::runtime_error&)

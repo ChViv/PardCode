@@ -1,5 +1,5 @@
 #pragma once
-namespace jazzy
+namespace DX3D
 {
 	class Logger final
 	{

@@ -1,11 +1,11 @@
-#include <JAZZY/Graphics/DeviceContext.h>
-#include <JAZZY/Graphics/SwapChain.h>
-#include <JAZZY/Graphics/GraphicsPipelineState.h>
-#include <JAZZY/Graphics/VertexBuffer.h>
-#include <JAZZY/Graphics/ConstantBuffer.h>
-#include <JAZZY/Graphics/IndexBuffer.h>
+#include <DX3D/Graphics/DeviceContext.h>
+#include <DX3D/Graphics/SwapChain.h>
+#include <DX3D/Graphics/GraphicsPipelineState.h>
+#include <DX3D/Graphics/VertexBuffer.h>
+#include <DX3D/Graphics/ConstantBuffer.h>
+#include <DX3D/Graphics/IndexBuffer.h>
 
-jazzy::DeviceContext::DeviceContext(const GraphicsResourceDesc& gDesc) : GraphicsResource(gDesc)
+dx3d::DeviceContext::DeviceContext(const GraphicsResourceDesc& gDesc) : GraphicsResource(gDesc)
 {
 	DX3DGraphicsLogThrowOnFail
 	(
@@ -14,7 +14,7 @@ jazzy::DeviceContext::DeviceContext(const GraphicsResourceDesc& gDesc) : Graphic
 	);
 }
 
-void jazzy::DeviceContext::clearAndSetBackBuffer(const SwapChain& swapChain, const Vec4& color)
+void dx3d::DeviceContext::clearAndSetBackBuffer(const SwapChain& swapChain, const Vec4& color)
 {
 	f32 fColor[] = { color.x, color.y, color.z, color.w };
 	auto rtv = swapChain.m_rtv.Get();
@@ -26,14 +26,14 @@ void jazzy::DeviceContext::clearAndSetBackBuffer(const SwapChain& swapChain, con
 	m_context->OMSetRenderTargets(1, &rtv, dsv);
 }
 
-void jazzy::DeviceContext::setGraphicsPipelineState(const GraphicsPipelineState& pipeline)
+void dx3d::DeviceContext::setGraphicsPipelineState(const GraphicsPipelineState& pipeline)
 {
 	m_context->IASetInputLayout(pipeline.m_layout.Get());
 	m_context->VSSetShader(pipeline.m_vs.Get(), nullptr, 0);
 	m_context->PSSetShader(pipeline.m_ps.Get(), nullptr, 0);
 }
 
-void jazzy::DeviceContext::setVertexBuffer(const VertexBuffer& buffer)
+void dx3d::DeviceContext::setVertexBuffer(const VertexBuffer& buffer)
 {
 	auto stride = buffer.m_vertexSize;
 	auto buf = buffer.m_buffer.Get();
@@ -48,7 +48,7 @@ void jazzy::DeviceContext::setVertexBuffer(const VertexBuffer& buffer)
 	);
 }
 
-void jazzy::DeviceContext::setIndexBuffer(const IndexBuffer& buffer)
+void dx3d::DeviceContext::setIndexBuffer(const IndexBuffer& buffer)
 {
 	m_context->IASetIndexBuffer
 	(
@@ -58,7 +58,7 @@ void jazzy::DeviceContext::setIndexBuffer(const IndexBuffer& buffer)
 	);
 }
 
-void jazzy::DeviceContext::setViewportSize(const Rect& size)
+void dx3d::DeviceContext::setViewportSize(const Rect& size)
 {
 	D3D11_VIEWPORT vp{};
 	vp.Width = static_cast<f32>(size.width);
@@ -73,19 +73,19 @@ void jazzy::DeviceContext::setViewportSize(const Rect& size)
 	);
 }
 
-void jazzy::DeviceContext::drawTriangleList(ui32 vertexCount, ui32 startVertexLocation)
+void dx3d::DeviceContext::drawTriangleList(ui32 vertexCount, ui32 startVertexLocation)
 {
 	m_context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);	// Tells the GPU how to interpret the vertex data
 	m_context->Draw(vertexCount, startVertexLocation);	// Executes Graphics Pipeline
 }
 
-void jazzy::DeviceContext::drawIndexedTriangleList(ui32 indexCount, ui32 startVertexIndex, ui32 startIndexLocation)
+void dx3d::DeviceContext::drawIndexedTriangleList(ui32 indexCount, ui32 startVertexIndex, ui32 startIndexLocation)
 {
 	m_context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);	// Tells the GPU how to interpret the vertex data
 	m_context->DrawIndexed(indexCount, startVertexIndex, startIndexLocation);	// Executes Graphics Pipeline
 }
 
-void jazzy::DeviceContext::updateConstantBuffer(const ConstantBuffer& buffer, const void* data)
+void dx3d::DeviceContext::updateConstantBuffer(const ConstantBuffer& buffer, const void* data)
 {
 	if (!data)
 	{
@@ -106,7 +106,7 @@ void jazzy::DeviceContext::updateConstantBuffer(const ConstantBuffer& buffer, co
 	m_context->Unmap(buf, 0);
 }
 
-void jazzy::DeviceContext::setConstantBuffer(const ConstantBuffer& buffer)
+void dx3d::DeviceContext::setConstantBuffer(const ConstantBuffer& buffer)
 {
 	auto buf = buffer.m_buffer.Get();
 	m_context->VSSetConstantBuffers

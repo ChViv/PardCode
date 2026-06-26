@@ -1,12 +1,12 @@
-#include <JAZZY/Game/Game.h>
-#include <JAZZY/Window/Window.h>
-#include <JAZZY/Graphics/GraphicsEngine.h>
-#include <JAZZY/Core/Logger.h>
-#include<JAZZY/Game/Display.h>
-#include <JAZZY/Input/InputSystem.h>
-#include <JAZZY/Cube.h>
+#include <DX3D/Game/Game.h>
+#include <DX3D/Window/Window.h>
+#include <DX3D/Graphics/GraphicsEngine.h>
+#include <DX3D/Core/Logger.h>
+#include<DX3D/Game/Display.h>
+#include <DX3D/Input/InputSystem.h>
+#include <DX3D/Cube.h>
 
-jazzy::Game::Game(const GameDesc& desc) :
+dx3d::Game::Game(const GameDesc& desc) :
 	Base({ *std::make_unique<Logger>(desc.logLevel).release() }),
 	m_LoggerPtr(&m_logger)
 {
@@ -20,12 +20,12 @@ jazzy::Game::Game(const GameDesc& desc) :
 	DX3DLogInfo("Game initialized.");
 }
 
-jazzy::Game::~Game()
+dx3d::Game::~Game()
 {
 	DX3DLogInfo("Game is shutting down.");
 }
 
-void jazzy::Game::onInternalUpdate()
+void dx3d::Game::onInternalUpdate()
 {
 	auto currentTime = std::chrono::steady_clock::now();
 	std::chrono::duration<f32> delta = currentTime - m_previousTime;

@@ -1,8 +1,8 @@
 #pragma once
-#include <JAZZY/Core/Core.h>
+#include <DX3D/Core/Core.h>
 #include <numbers>
 
-namespace jazzy
+namespace dx3d
 {
 	namespace MathUtils
 	{

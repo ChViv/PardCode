@@ -1,6 +1,6 @@
-#include <JAZZY/Graphics/ConstantBuffer.h>
+#include <DX3D/Graphics/ConstantBuffer.h>
 
-jazzy::ConstantBuffer::ConstantBuffer(const ConstantBufferDesc& desc, const GraphicsResourceDesc& gDesc) : GraphicsResource(gDesc), m_size(desc.bufferSize)
+dx3d::ConstantBuffer::ConstantBuffer(const ConstantBufferDesc& desc, const GraphicsResourceDesc& gDesc) : GraphicsResource(gDesc), m_size(desc.bufferSize)
 {
 	D3D11_BUFFER_DESC buffDesc{};
 	buffDesc.Usage = D3D11_USAGE_DYNAMIC;

@@ -1,6 +1,6 @@
 #pragma once
-#include <JAZZY/Graphics/GraphicsResource.h>
-namespace jazzy
+#include <DX3D/Graphics/GraphicsResource.h>
+namespace dx3d
 {
 	class ConstantBuffer final : public GraphicsResource
 	{

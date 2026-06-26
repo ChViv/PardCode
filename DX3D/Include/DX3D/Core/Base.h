@@ -1,7 +1,7 @@
 #pragma once
-#include <JAZZY/Core/Common.h>
+#include <DX3D/Core/Common.h>
 
-namespace jazzy
+namespace dx3d
 {
 	class Base
 	{

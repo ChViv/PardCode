@@ -1,8 +1,8 @@
-#include <JAZZY/Graphics/GraphicsPipelineState.h>
-#include <JAZZY/Graphics/ShaderBinary.h>
-#include <JAZZY/Graphics/VertexShaderSignature.h>
+#include <DX3D/Graphics/GraphicsPipelineState.h>
+#include <DX3D/Graphics/ShaderBinary.h>
+#include <DX3D/Graphics/VertexShaderSignature.h>
 
-jazzy::GraphicsPipelineState::GraphicsPipelineState(const GraphicsPipelineStateDesc& desc, const GraphicsResourceDesc& gDesc) : GraphicsResource(gDesc)
+dx3d::GraphicsPipelineState::GraphicsPipelineState(const GraphicsPipelineStateDesc& desc, const GraphicsResourceDesc& gDesc) : GraphicsResource(gDesc)
 {
 	if (desc.ps.getType() != ShaderType::PixelShader)
 		DX3DLogThrowInvalidArg("The 'ps' member is not a valid pixel shader binary");

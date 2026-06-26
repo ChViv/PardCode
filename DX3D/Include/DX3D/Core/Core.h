@@ -3,7 +3,7 @@
 #include <memory>
 
 // Forward Declaration to declare a class without defining it
-namespace jazzy
+namespace dx3d
 {
 	class Base;
 	class Window;

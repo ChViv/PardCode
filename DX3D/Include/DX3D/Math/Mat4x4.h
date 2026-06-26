@@ -1,11 +1,11 @@
 #pragma once
 #include <cassert>
 #include <cmath>
-#include <JAZZY/Core/Core.h>
-#include <JAZZY/Math/Vec3.h>
-#include <JAZZY/Math/MathUtils.h>
+#include <DX3D/Core/Core.h>
+#include <DX3D/Math/Vec3.h>
+#include <DX3D/Math/MathUtils.h>
 
-namespace jazzy
+namespace dx3d
 {
 	class Mat4x4
 	{

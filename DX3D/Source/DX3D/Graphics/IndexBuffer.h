@@ -1,7 +1,7 @@
 #pragma once
-#include <JAZZY/Graphics/GraphicsResource.h>
+#include <DX3D/Graphics/GraphicsResource.h>
 
-namespace jazzy
+namespace DX3Ddx3d
 {
 	class IndexBuffer final : public GraphicsResource
 	{

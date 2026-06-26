@@ -1,7 +1,7 @@
 #pragma once
-#include <JAZZY/Graphics/GraphicsResource.h>
+#include <DX3D/Graphics/GraphicsResource.h>
 
-namespace jazzy
+namespace dx3d
 {
 	class GraphicsPipelineState final : public GraphicsResource
 	{

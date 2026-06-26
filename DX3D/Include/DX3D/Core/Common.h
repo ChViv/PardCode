@@ -1,9 +1,9 @@
 #pragma once
-#include <JAZZY/Core/Core.h>
-#include <JAZZY/Core/Logger.h>
-#include <JAZZY/Math/Rect.h>
+#include <DX3D/Core/Core.h>
+#include <DX3D/Core/Logger.h>
+#include <DX3D/Math/Rect.h>
 
-namespace jazzy
+namespace dx3d
 {
 	struct BaseDesc
 	{

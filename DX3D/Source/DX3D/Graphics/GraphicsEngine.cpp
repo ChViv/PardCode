@@ -1,19 +1,19 @@
-#include <JAZZY/Graphics/GraphicsEngine.h>
-#include <JAZZY/Graphics/GraphicsDevice.h>
-#include <JAZZY/Graphics/DeviceContext.h>
-#include <JAZZY/Graphics/SwapChain.h>
-#include <JAZZY/Graphics/VertexBuffer.h>	
-#include <JAZZY/Graphics/IndexBuffer.h>	
-#include "JAZZY/Input/InputSystem.h"
-#include <JAZZY/Math/Vec3.h>
-#include <JAZZY/Math/Vertex.h>
+#include <DX3D/Graphics/GraphicsEngine.h>
+#include <DX3D/Graphics/GraphicsDevice.h>
+#include <DX3D/Graphics/DeviceContext.h>
+#include <DX3D/Graphics/SwapChain.h>
+#include <DX3D/Graphics/VertexBuffer.h>	
+#include <DX3D/Graphics/IndexBuffer.h>	
+#include "DX3D/Input/InputSystem.h"
+#include <DX3D/Math/Vec3.h>
+#include <DX3D/Math/Vertex.h>
 #include <fstream>
 #include <string>
 #include <ranges>
 
-using namespace jazzy;
+using namespace dx3d;
 
-jazzy::GraphicsEngine::GraphicsEngine(const GraphicsEngineDesc& desc) : Base(desc.base)
+dx3d::GraphicsEngine::GraphicsEngine(const GraphicsEngineDesc& desc) : Base(desc.base)
 {
 	m_graphicsDevice = std::make_shared< GraphicsDevice>(GraphicsDeviceDesc{ m_logger });
 
@@ -21,7 +21,7 @@ jazzy::GraphicsEngine::GraphicsEngine(const GraphicsEngineDesc& desc) : Base(des
 	m_deviceContext = device.createDeviceContext();
 
 	// Original
-	/*constexpr char shaderFilePath[] = "JAZZY/Assets/Shaders/Basic.hlsl";
+	/*constexpr char shaderFilePath[] = "DX3D/Assets/Shaders/Basic.hlsl";
 	std::ifstream shaderStream(shaderFilePath);
 	if (!shaderStream) DX3DLogThrowError("Failed to open shader file");
 	std::string shaderFileData
@@ -34,7 +34,7 @@ jazzy::GraphicsEngine::GraphicsEngine(const GraphicsEngineDesc& desc) : Base(des
 	auto shaderSourceCodeSize = shaderFileData.length();*/
 
 	// VertexShader
-	constexpr char vShaderFilePath[] = "JAZZY/Assets/Shaders/BasicVertexShader.hlsl";
+	constexpr char vShaderFilePath[] = "DX3D/Assets/Shaders/BasicVertexShader.hlsl";
 	std::ifstream vShaderStream(vShaderFilePath);
 	if (!vShaderStream) DX3DLogThrowError("Failed to open vertex shader file");
 	std::string vShaderFileData
@@ -47,7 +47,7 @@ jazzy::GraphicsEngine::GraphicsEngine(const GraphicsEngineDesc& desc) : Base(des
 	auto vShaderSourceCodeSize = vShaderFileData.length();
 
 	// PixelShader
-	constexpr char pShaderFilePath[] = "JAZZY/Assets/Shaders/BasicPixelShader.hlsl";
+	constexpr char pShaderFilePath[] = "DX3D/Assets/Shaders/BasicPixelShader.hlsl";
 	std::ifstream pShaderStream(pShaderFilePath);
 	if (!pShaderStream) DX3DLogThrowError("Failed to open pixel shader file");
 	std::string pShaderFileData
@@ -129,11 +129,11 @@ jazzy::GraphicsEngine::GraphicsEngine(const GraphicsEngineDesc& desc) : Base(des
 	m_TempWorldCam = Mat4x4::translation(Vec3(0.0f, 0.0f, -2.0f));
 }
 
-jazzy::GraphicsEngine::~GraphicsEngine()
+dx3d::GraphicsEngine::~GraphicsEngine()
 {
 }
 
-jazzy::GraphicsDevice& jazzy::GraphicsEngine::getGraphicsDevice() noexcept
+dx3d::GraphicsDevice& dx3d::GraphicsEngine::getGraphicsDevice() noexcept
 {
 	return *m_graphicsDevice;
 }

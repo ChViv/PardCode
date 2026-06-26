@@ -1,9 +1,9 @@
 #pragma once
 #include <chrono>
-#include <JAZZY/Core/Base.h>
-#include <JAZZY/Core/Core.h>
+#include <DX3D/Core/Base.h>
+#include <DX3D/Core/Core.h>
 
-namespace jazzy
+namespace dx3d
 {
 	class Game : public Base
 	{

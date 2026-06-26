@@ -1,7 +1,7 @@
 #pragma once
-#include <JAZZY/Core/Core.h>
+#include <DX3D/Core/Core.h>
 
-namespace jazzy
+namespace dx3d
 {
 	class Rect
 	{
