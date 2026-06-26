@@ -148,6 +148,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Game\main.cpp" />
+    <ClCompile Include="DX3D\Include\DX3D\Math\Quad.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />
@@ -160,6 +161,14 @@
     <ClInclude Include="DX3D\Include\DX3D\Core\Logger.h" />
     <ClInclude Include="DX3D\Include\DX3D\Game\Display.h" />
     <ClInclude Include="DX3D\Include\DX3D\Game\Game.h" />
+    <ClInclude Include="DX3D\Include\DX3D\Math\Mat4x4.h" />
+    <ClInclude Include="DX3D\Include\DX3D\Math\Rect.h" />
+    <ClInclude Include="DX3D\Include\DX3D\Math\Triangle.h" />
+    <ClInclude Include="DX3D\Include\DX3D\Math\Vec3.h" />
+    <ClInclude Include="DX3D\Include\DX3D\Math\Vec4.h" />
+    <ClInclude Include="DX3D\Include\DX3D\Math\Vertex.h" />
+    <ClInclude Include="DX3D\Include\DX3D\Math\Quad.h" />
+    <ClInclude Include="DX3D\Include\DX3D\Window\Window.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
