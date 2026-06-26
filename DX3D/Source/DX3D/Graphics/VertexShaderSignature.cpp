@@ -54,12 +54,12 @@ dx3d::VertexShaderSignature::VertexShaderSignature(const VertexShaderSignatureDe
 	}
 }
 
-dx3d::BinaryData jazzy::VertexShaderSignature::getShaderBinaryData() const noexcept
+dx3d::BinaryData dx3d::VertexShaderSignature::getShaderBinaryData() const noexcept
 {
 	return m_vsBinary->getData();
 }
 
-dx3d::BinaryData jazzy::VertexShaderSignature::getInputElementsData() const noexcept
+dx3d::BinaryData dx3d::VertexShaderSignature::getInputElementsData() const noexcept
 {
 	return
 	{

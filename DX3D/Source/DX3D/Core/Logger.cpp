@@ -2,7 +2,7 @@
 #include <iostream>
 dx3d::Logger::Logger(LogLevel loglevel) : m_logLevel(loglevel)
 {
-	std::clog << " Logger | Zivv Elomina | JAZZY Engine | GDENG03 " << "\n";
+	std::clog << "CHEN GDENG03 " << "\n";
 	std::clog << "------------------------------------------------" << "\n";
 }
 
@@ -24,5 +24,5 @@ void dx3d::Logger::log(LogLevel level, const char* message)
 		};
 
 	if (level > m_logLevel) return;
-	std::clog << "[JAZZY " << logLevelToString(level) << "]: " << message << "\n";
+	std::clog << "[DX3D " << logLevelToString(level) << "]: " << message << "\n";
 }

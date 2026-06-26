@@ -63,7 +63,7 @@ GraphicsDevice::~GraphicsDevice()
 {
 }
 
-SwapChainPtr jazzy::GraphicsDevice::createSwapChain(const SwapChainDesc& desc) const
+SwapChainPtr dx3d::GraphicsDevice::createSwapChain(const SwapChainDesc& desc) const
 {
 	return std::make_shared<SwapChain>(desc, getGraphicsResourceDesc());
 }
@@ -83,7 +83,7 @@ GraphicsPipelineStatePtr GraphicsDevice::createGraphicsPipelineState(const Graph
 	return std::make_shared<GraphicsPipelineState>(desc, getGraphicsResourceDesc());
 }
 
-VertexBufferPtr jazzy::GraphicsDevice::createVertexBuffer(const VertexBufferDesc& desc)
+VertexBufferPtr dx3d::GraphicsDevice::createVertexBuffer(const VertexBufferDesc& desc)
 {
 	return std::make_shared<VertexBuffer>(desc, getGraphicsResourceDesc());
 }
@@ -114,7 +114,7 @@ void GraphicsDevice::executeCommandList(DeviceContext& context)
 	m_d3dContext->ExecuteCommandList(list.Get(), false);
 }
 
-GraphicsResourceDesc jazzy::GraphicsDevice::getGraphicsResourceDesc() const noexcept
+GraphicsResourceDesc dx3d::GraphicsDevice::getGraphicsResourceDesc() const noexcept
 {
 	return { {m_logger}, shared_from_this(),  *m_d3dDevice.Get(), *m_dxgiFactory.Get() };
 }

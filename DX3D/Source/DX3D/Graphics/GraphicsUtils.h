@@ -1,5 +1,5 @@
 #pragma once
-#include <JAZZY/Core/Common.h>
+#include <DX3D/Core/Common.h>
 #include <d3d11.h>
 #include <bit>
 namespace dx3d

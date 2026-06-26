@@ -7,9 +7,10 @@
 #include <DX3D/Math/Vec3.h>
 #include <fstream>
 #include <string>
+
 using namespace dx3d;
 
-GraphicsEngine::GraphicsEngine(const GraphicsEngineDesc& desc) : Base(desc.base)
+dx3d::GraphicsEngine::GraphicsEngine(const GraphicsEngineDesc& desc) : Base(desc.base)
 {
 	m_graphicsDevice = std::make_shared< GraphicsDevice>(GraphicsDeviceDesc{ m_logger });
 
@@ -17,7 +18,7 @@ GraphicsEngine::GraphicsEngine(const GraphicsEngineDesc& desc) : Base(desc.base)
 	m_deviceContext = device.createDeviceContext();
 
 	// Original
-	/*constexpr char shaderFilePath[] = "JAZZY/Assets/Shaders/Basic.hlsl";
+	/*constexpr char shaderFilePath[] = "DX3D/Assets/Shaders/Basic.hlsl";
 	std::ifstream shaderStream(shaderFilePath);
 	if (!shaderStream) DX3DLogThrowError("Failed to open shader file");
 	std::string shaderFileData
@@ -30,7 +31,7 @@ GraphicsEngine::GraphicsEngine(const GraphicsEngineDesc& desc) : Base(desc.base)
 	auto shaderSourceCodeSize = shaderFileData.length();*/
 
 	// VertexShader
-	constexpr char vShaderFilePath[] = "JAZZY/Assets/Shaders/BasicVertexShader.hlsl";
+	constexpr char vShaderFilePath[] = "DX3D/Assets/Shaders/BasicVertexShader.hlsl";
 	std::ifstream vShaderStream(vShaderFilePath);
 	if (!vShaderStream) DX3DLogThrowError("Failed to open vertex shader file");
 	std::string vShaderFileData
@@ -43,7 +44,7 @@ GraphicsEngine::GraphicsEngine(const GraphicsEngineDesc& desc) : Base(desc.base)
 	auto vShaderSourceCodeSize = vShaderFileData.length();
 
 	// PixelShader
-	constexpr char pShaderFilePath[] = "JAZZY/Assets/Shaders/BasicPixelShader.hlsl";
+	constexpr char pShaderFilePath[] = "DX3D/Assets/Shaders/BasicPixelShader.hlsl";
 	std::ifstream pShaderStream(pShaderFilePath);
 	if (!pShaderStream) DX3DLogThrowError("Failed to open pixel shader file");
 	std::string pShaderFileData
@@ -120,7 +121,7 @@ GraphicsEngine::~GraphicsEngine()
 {
 }
 
-GraphicsDevice& jazzy::GraphicsEngine::getGraphicsDevice() noexcept
+GraphicsDevice& dx3d::GraphicsEngine::getGraphicsDevice() noexcept
 {
 	return *m_graphicsDevice;
 }

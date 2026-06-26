@@ -11,24 +11,22 @@
 
 namespace dx3d
 {
-	// Final means no class can derive from GraphicsEngine class
 	class GraphicsEngine final : public Base
 	{
 	public:
-		GraphicsEngine(const GraphicsEngineDesc& desc);
+		explicit GraphicsEngine(const GraphicsEngineDesc& desc);
 		virtual ~GraphicsEngine() override;
 
 		GraphicsDevice& getGraphicsDevice() noexcept;
 
 		void render(SwapChain& swapChain);
 
-		// Debug things
 	private:
 		ui32 time{};
 		ui32 time_prev{};
 		ui32 time_curr{};
 		ui32 delta_time{};
-	private:
+
 		struct alignas(16) ConstantData
 		{
 			Mat4x4 m_world{};
@@ -36,6 +34,7 @@ namespace dx3d
 			Mat4x4 m_projection{};
 			ui32 m_time;
 		};
+
 	private:
 		std::shared_ptr<GraphicsDevice> m_graphicsDevice{};
 		DeviceContextPtr m_deviceContext{};

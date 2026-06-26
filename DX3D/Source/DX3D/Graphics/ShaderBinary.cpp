@@ -4,10 +4,6 @@
 dx3d::ShaderBinary::ShaderBinary(const ShaderCompileDesc& desc, const GraphicsResourceDesc& gDesc) :
 	GraphicsResource(gDesc), m_type(desc.shaderType)
 {
-	if (!desc.shaderSourceName) DX3DLogThrowInvalidArg("No shader source name provided.");
-	if (!desc.shaderSourceCode) DX3DLogThrowInvalidArg("No shader source code provided.");
-	if (!desc.shaderSourceCodeSize) DX3DLogThrowInvalidArg("No shader source code size provided.");
-	if (!desc.shaderEntryPoint) DX3DLogThrowInvalidArg("No shader entry point provided.");
 
 	UINT compileFlags{};
 
@@ -26,7 +22,7 @@ dx3d::ShaderBinary::ShaderBinary(const ShaderCompileDesc& desc, const GraphicsRe
 			nullptr,
 			nullptr,
 			desc.shaderEntryPoint,
-			jazzy::GraphicsUtils::GetShaderModelTarget(desc.shaderType),
+			dx3d::GraphicsUtils::GetShaderModelTarget(desc.shaderType),
 			compileFlags,
 			0,
 			&m_blob,
@@ -36,7 +32,7 @@ dx3d::ShaderBinary::ShaderBinary(const ShaderCompileDesc& desc, const GraphicsRe
 	);
 }
 
-dx3d::BinaryData jazzy::ShaderBinary::getData() const noexcept
+dx3d::BinaryData dx3d::ShaderBinary::getData() const noexcept
 {
 	return
 	{
@@ -45,7 +41,7 @@ dx3d::BinaryData jazzy::ShaderBinary::getData() const noexcept
 	};
 }
 
-dx3d::ShaderType jazzy::ShaderBinary::getType() const noexcept
+dx3d::ShaderType dx3d::ShaderBinary::getType() const noexcept
 {
 	return m_type;
 }

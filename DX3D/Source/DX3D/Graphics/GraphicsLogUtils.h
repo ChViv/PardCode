@@ -31,5 +31,5 @@ namespace dx3d
 #define DX3DGraphicsCheckShaderCompile(hr, errorBlob)\
 {\
 	auto res = (hr);\
-	jazzy::GraphicsLogUtils::CheckShaderCompile(getLogger(), res, errorBlob);\
+	dx3d::GraphicsLogUtils::CheckShaderCompile(getLogger(), res, errorBlob);\
 }

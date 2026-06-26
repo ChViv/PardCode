@@ -68,19 +68,19 @@ void dx3d::DeviceContext::setViewportSize(const Rect& size)
 	);
 }
 
-void jazzy::DeviceContext::drawTriangleList(ui32 vertexCount, ui32 startVertexLocation)
+void dx3d::DeviceContext::drawTriangleList(ui32 vertexCount, ui32 startVertexLocation)
 {
 	m_context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);	// Tells the GPU how to interpret the vertex data
 	m_context->Draw(vertexCount, startVertexLocation);	// Executes Graphics Pipeline
 }
 
-void jazzy::DeviceContext::drawIndexedTriangleList(ui32 indexCount, ui32 startVertexIndex, ui32 startIndexLocation)
+void dx3d::DeviceContext::drawIndexedTriangleList(ui32 indexCount, ui32 startVertexIndex, ui32 startIndexLocation)
 {
 	m_context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);	// Tells the GPU how to interpret the vertex data
 	m_context->DrawIndexed(indexCount, startVertexIndex, startIndexLocation);	// Executes Graphics Pipeline
 }
 
-void jazzy::DeviceContext::updateConstantBuffer(const ConstantBuffer& buffer, const void* data)
+void dx3d::DeviceContext::updateConstantBuffer(const ConstantBuffer& buffer, const void* data)
 {
 	if (!data)
 	{
@@ -101,7 +101,7 @@ void jazzy::DeviceContext::updateConstantBuffer(const ConstantBuffer& buffer, co
 	m_context->Unmap(buf, 0);
 }
 
-void jazzy::DeviceContext::setConstantBuffer(const ConstantBuffer& buffer)
+void dx3d::DeviceContext::setConstantBuffer(const ConstantBuffer& buffer)
 {
 	auto buf = buffer.m_buffer.Get();
 	m_context->VSSetConstantBuffers
