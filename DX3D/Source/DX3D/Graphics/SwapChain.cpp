@@ -1,8 +1,9 @@
-#include <DX3D/Graphics/SwapChain.h>
+#include <JAZZY/Graphics/SwapChain.h>
 
-dx3d::SwapChain::SwapChain(const SwapChainDesc& desc, const GraphicsResourceDesc& gDesc) :
+jazzy::SwapChain::SwapChain(const SwapChainDesc& desc, const GraphicsResourceDesc& gDesc) :
 	GraphicsResource(gDesc), m_size(desc.winSize)
 {
+	if (!desc.winHandle) DX3DLogThrowInvalidArg("No window handle provided.");
 	DXGI_SWAP_CHAIN_DESC dxgiDesc{};
 	dxgiDesc.BufferDesc.Width = std::max(1, desc.winSize.width);
 	dxgiDesc.BufferDesc.Height = std::max(1, desc.winSize.height);
@@ -24,12 +25,12 @@ dx3d::SwapChain::SwapChain(const SwapChainDesc& desc, const GraphicsResourceDesc
 	reloadBuffers();
 }
 
-dx3d::Rect dx3d::SwapChain::getSize() const noexcept
+jazzy::Rect jazzy::SwapChain::getSize() const noexcept
 {
 	return m_size;
 }
 
-void dx3d::SwapChain::present(bool vsync)
+void jazzy::SwapChain::present(bool vsync)
 {
 	DX3DGraphicsLogThrowOnFail
 	(
@@ -38,7 +39,7 @@ void dx3d::SwapChain::present(bool vsync)
 	);
 }
 
-void dx3d::SwapChain::reloadBuffers()
+void jazzy::SwapChain::reloadBuffers()
 {
 	Microsoft::WRL::ComPtr <ID3D11Texture2D> buffer{};
 	DX3DGraphicsLogThrowOnFail
@@ -51,4 +52,18 @@ void dx3d::SwapChain::reloadBuffers()
 		m_device.CreateRenderTargetView(buffer.Get(), nullptr, &m_rtv),
 		"CreateRenderTargetView failed."
 	);
+
+	D3D11_TEXTURE2D_DESC depthTexDesc = {};
+	depthTexDesc.Width = std::max(1, m_size.width);
+	depthTexDesc.Height = std::max(1, m_size.height);
+	depthTexDesc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
+	depthTexDesc.BindFlags = D3D11_BIND_DEPTH_STENCIL;
+	depthTexDesc.MipLevels = 1;
+	depthTexDesc.SampleDesc.Count = 1;
+	depthTexDesc.ArraySize = 1;
+
+	DX3DGraphicsLogThrowOnFail(m_device.CreateTexture2D(&depthTexDesc, nullptr, &buffer),
+		"CreateTexture2D failed.");
+	DX3DGraphicsLogThrowOnFail(m_device.CreateDepthStencilView(buffer.Get(), NULL, &m_dsv),
+		"CreateDepthStencilView failed.");
 }

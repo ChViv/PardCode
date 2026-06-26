@@ -1,8 +1,8 @@
 #pragma once
-#include <DX3D/Core/Common.h>
+#include <JAZZY/Core/Common.h>
 #include <d3d11.h>
 #include <bit>
-namespace dx3d
+namespace jazzy
 {
 	namespace GraphicsUtils
 	{

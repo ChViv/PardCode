@@ -1,14 +1,14 @@
 #pragma once
-#include<DX3D/Graphics/GraphicsResource.h>
-#include<DX3D/Core/Common.h>
-#include<DX3D/Core/Base.h>
+#include<JAZZY/Graphics/GraphicsResource.h>
+#include<JAZZY/Core/Common.h>
+#include<JAZZY/Core/Base.h>
 #include<d3d11.h>
 #include<wrl.h>
 
 // I didnt quite understand Pardcode, he wanted to put the GraphicsDevice in this so that its functions are not exposed to the rest of the engine
 // Which is why the header is in the source folder instead of the include folder
 
-namespace dx3d
+namespace jazzy
 {
 	class GraphicsDevice final : public Base, public std::enable_shared_from_this<GraphicsDevice>
 	{

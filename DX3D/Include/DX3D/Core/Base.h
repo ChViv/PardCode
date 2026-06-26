@@ -1,7 +1,7 @@
 #pragma once
-#include <DX3D/Core/Common.h>
+#include <JAZZY/Core/Common.h>
 
-namespace dx3d
+namespace jazzy
 {
 	class Base
 	{
@@ -38,4 +38,4 @@ namespace dx3d
 	DX3DLogThrow(getLogger(), std::runtime_error, Logger::LogLevel::Error, message)
 
 #define DX3DLogThrowInvalidArg(message)\
-	DX3DLogThrow(getLogger(), std::invalid_argument, Logger::LogLevel::Error, message)#pragma once
+	DX3DLogThrow(getLogger(), std::invalid_argument, Logger::LogLevel::Error, message)

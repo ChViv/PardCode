@@ -1,7 +1,7 @@
 #pragma once
-#include <DX3D/Window/Window.h>
+#include <JAZZY/Window/Window.h>
 
-namespace dx3d
+namespace jazzy
 {
 	class Display final : public Window
 	{

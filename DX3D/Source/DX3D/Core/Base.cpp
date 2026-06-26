@@ -1,11 +1,11 @@
-#include "DX3D/Core/Base.h"
-using namespace dx3d;
+#include "JAZZY/Core/Base.h"
+using namespace jazzy;
 
-Base::Base(const BaseDesc& desc) : m_logger(desc.logger)
+jazzy::Base::Base(const BaseDesc& desc) : m_logger(desc.logger)
 {
 }
 
-Base::~Base()
+jazzy::Base::~Base()
 {
 }
 

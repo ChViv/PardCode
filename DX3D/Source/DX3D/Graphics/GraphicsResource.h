@@ -1,11 +1,11 @@
 #pragma once
-#include <DX3D/Core/Common.h>
-#include <DX3D/Core/Base.h>
-#include <DX3D/Graphics/GraphicsLogUtils.h>
+#include <JAZZY/Core/Common.h>
+#include <JAZZY/Core/Base.h>
+#include <JAZZY/Graphics/GraphicsLogUtils.h>
 #include <d3d11.h>
 #include <wrl.h>
 
-namespace dx3d
+namespace jazzy
 {
 	struct GraphicsResourceDesc
 	{

@@ -1,16 +1,19 @@
-#include <DX3D/Graphics/GraphicsEngine.h>
-#include <DX3D/Graphics/GraphicsDevice.h>
-#include <DX3D/Graphics/DeviceContext.h>
-#include <DX3D/Graphics/SwapChain.h>
-#include <DX3D/Graphics/VertexBuffer.h>	
-#include <DX3D/Graphics/IndexBuffer.h>	
-#include <DX3D/Math/Vec3.h>
+#include <JAZZY/Graphics/GraphicsEngine.h>
+#include <JAZZY/Graphics/GraphicsDevice.h>
+#include <JAZZY/Graphics/DeviceContext.h>
+#include <JAZZY/Graphics/SwapChain.h>
+#include <JAZZY/Graphics/VertexBuffer.h>	
+#include <JAZZY/Graphics/IndexBuffer.h>	
+#include "JAZZY/Input/InputSystem.h"
+#include <JAZZY/Math/Vec3.h>
+#include <JAZZY/Math/Vertex.h>
 #include <fstream>
 #include <string>
+#include <ranges>
 
-using namespace dx3d;
+using namespace jazzy;
 
-dx3d::GraphicsEngine::GraphicsEngine(const GraphicsEngineDesc& desc) : Base(desc.base)
+jazzy::GraphicsEngine::GraphicsEngine(const GraphicsEngineDesc& desc) : Base(desc.base)
 {
 	m_graphicsDevice = std::make_shared< GraphicsDevice>(GraphicsDeviceDesc{ m_logger });
 
@@ -18,7 +21,7 @@ dx3d::GraphicsEngine::GraphicsEngine(const GraphicsEngineDesc& desc) : Base(desc
 	m_deviceContext = device.createDeviceContext();
 
 	// Original
-	/*constexpr char shaderFilePath[] = "DX3D/Assets/Shaders/Basic.hlsl";
+	/*constexpr char shaderFilePath[] = "JAZZY/Assets/Shaders/Basic.hlsl";
 	std::ifstream shaderStream(shaderFilePath);
 	if (!shaderStream) DX3DLogThrowError("Failed to open shader file");
 	std::string shaderFileData
@@ -31,7 +34,7 @@ dx3d::GraphicsEngine::GraphicsEngine(const GraphicsEngineDesc& desc) : Base(desc
 	auto shaderSourceCodeSize = shaderFileData.length();*/
 
 	// VertexShader
-	constexpr char vShaderFilePath[] = "DX3D/Assets/Shaders/BasicVertexShader.hlsl";
+	constexpr char vShaderFilePath[] = "JAZZY/Assets/Shaders/BasicVertexShader.hlsl";
 	std::ifstream vShaderStream(vShaderFilePath);
 	if (!vShaderStream) DX3DLogThrowError("Failed to open vertex shader file");
 	std::string vShaderFileData
@@ -44,7 +47,7 @@ dx3d::GraphicsEngine::GraphicsEngine(const GraphicsEngineDesc& desc) : Base(desc
 	auto vShaderSourceCodeSize = vShaderFileData.length();
 
 	// PixelShader
-	constexpr char pShaderFilePath[] = "DX3D/Assets/Shaders/BasicPixelShader.hlsl";
+	constexpr char pShaderFilePath[] = "JAZZY/Assets/Shaders/BasicPixelShader.hlsl";
 	std::ifstream pShaderStream(pShaderFilePath);
 	if (!pShaderStream) DX3DLogThrowError("Failed to open pixel shader file");
 	std::string pShaderFileData
@@ -73,18 +76,23 @@ dx3d::GraphicsEngine::GraphicsEngine(const GraphicsEngineDesc& desc) : Base(desc
 	*/
 
 	// Vertex Buffer
+	f32 cubeSize = 0.25f;
+	Vec4 orange(0.99f, 0.16f, 0.01f, 1.0f);
+	Vec4 mikublue(0.03f, 0.74f, 0.68f, 1.0f);
+	Vec4 ourple(0.34f, 0.0f, 0.94f, 1.0f);
+	Vec4 black(0.0f, 0.0f, 0.0f, 1.0f);
 	Vertex vertexList[] =
 	{
 		// Front Face
-		Vertex{ {-0.5f,-0.5f,-0.5f}, {0.99f, 0.16f, 0.01f, 1.0f} },
-		Vertex{ {-0.5f,0.5f,-0.5f}, {0.03f, 0.74f, 0.68f, 1.0f} },
-		Vertex{ {0.5f,0.5f,-0.5f}, {0.0f, 0.0f, 0.0f, 1.0f} },
-		Vertex{ {0.5f,-0.5f,-0.5f}, {0.34f, 0.0f, 0.94f, 1.0f} },
+		Vertex{ {-cubeSize,-cubeSize,-cubeSize}, orange},
+		Vertex{ {-cubeSize,cubeSize,-cubeSize}, mikublue},
+		Vertex{ {cubeSize,cubeSize,-cubeSize}, ourple},
+		Vertex{ {cubeSize,-cubeSize,-cubeSize}, black},
 		// Back Face
-		Vertex{ {0.5f,-0.5f,0.5f}, {0.0f, 0.0f, 0.0f, 1.0f} },
-		Vertex{ {0.5f,0.5f,0.5f}, {0.34f, 0.0f, 0.94f, 1.0f} },
-		Vertex{ {-0.5f,0.5f,0.5f}, {0.99f, 0.16f, 0.01f, 1.0f} },
-		Vertex{ {-0.5f,-0.5f,0.5f}, {0.03f, 0.74f, 0.68f, 1.0f} }
+		Vertex{ {cubeSize,-cubeSize,cubeSize}, orange},
+		Vertex{ {cubeSize,cubeSize,cubeSize}, mikublue},
+		Vertex{ {-cubeSize,cubeSize,cubeSize}, ourple},
+		Vertex{ {-cubeSize,-cubeSize,cubeSize}, black}
 	};
 
 	m_vb = device.createVertexBuffer({ vertexList, std::size(vertexList), sizeof(Vertex) });
@@ -115,18 +123,22 @@ dx3d::GraphicsEngine::GraphicsEngine(const GraphicsEngineDesc& desc) : Base(desc
 
 	// Constant Buffer
 	m_cb = device.createConstantBuffer({ {}, sizeof(ConstantData) });
+
+	// TEMPORARY DEPENDECY FOR DEBUGGING
+	m_inputSystem = desc.inputSystem;
+	m_TempWorldCam = Mat4x4::translation(Vec3(0.0f, 0.0f, -2.0f));
 }
 
-GraphicsEngine::~GraphicsEngine()
+jazzy::GraphicsEngine::~GraphicsEngine()
 {
 }
 
-GraphicsDevice& dx3d::GraphicsEngine::getGraphicsDevice() noexcept
+jazzy::GraphicsDevice& jazzy::GraphicsEngine::getGraphicsDevice() noexcept
 {
 	return *m_graphicsDevice;
 }
 
-void GraphicsEngine::render(SwapChain& swapChain)
+void GraphicsEngine::render(f32 deltaTime, SwapChain& swapChain)
 {
 	auto& context = *m_deviceContext;
 	context.clearAndSetBackBuffer(swapChain, { 0.0549, 0.07, 0.109, 1 });
@@ -134,31 +146,34 @@ void GraphicsEngine::render(SwapChain& swapChain)
 
 	context.setViewportSize(swapChain.getSize());
 
-	auto& vb = *m_vb;
-	context.setVertexBuffer(vb);
+	for (auto i : std::views::iota(0u, cubes.size()))
+	{
+		auto& vb = *m_vb;
+		context.setVertexBuffer(vb);
 
-	auto& ib = *m_ib;
-	context.setIndexBuffer(ib);
+		auto& ib = *m_ib;
+		context.setIndexBuffer(ib);
 
-	// Constant Buffer
-	// Get the ConstantBuffer,
-	auto& cb = *m_cb;
+		// Constant Buffer
+		// Get the ConstantBuffer,
+		auto& cb = *m_cb;
 
-	// Declare Constant Data
-	ConstantData data{};
+		// Declare Constant Data
+		ConstantData data{};
 
-	// Feed Constant data with updated values
-	updateConstantData(data);
-	//DX3DLogInfo((std::to_string(data.m_time)).c_str());
+		// Feed Constant data with updated values
+		updateConstantData(deltaTime, data, i);
+		//DX3DLogInfo((std::to_string(deltaTime)).c_str());
 
-	// Update it with the data, 
-	context.updateConstantBuffer(cb, &data);
+		// Update it with the data, 
+		context.updateConstantBuffer(cb, &data);
 
-	// then send it to the vertex and pixel shader
-	context.setConstantBuffer(cb);
+		// then send it to the vertex and pixel shader
+		context.setConstantBuffer(cb);
 
-	context.drawIndexedTriangleList(ib.getIndexListSize(), 0u, 0u);
-	//context.drawTriangleList(vb.getVertexListSize(), 0u);
+		context.drawIndexedTriangleList(ib.getIndexListSize(), 0u, 0u);
+		//context.drawTriangleList(vb.getVertexListSize(), 0u);
+	}
 
 	auto& device = *m_graphicsDevice;
 	device.executeCommandList(context);
@@ -166,34 +181,53 @@ void GraphicsEngine::render(SwapChain& swapChain)
 
 }
 
-void GraphicsEngine::updateConstantData(ConstantData& data)
+void GraphicsEngine::updateConstantData(f32 deltaTime, ConstantData& data, ui32 index)
 {
-	// Compute for delta time
-	time_curr = ::GetTickCount();
-	delta_time = time_curr - time_prev;
-	if (delta_time < 100)
-	{
-		time += delta_time;
-	}
-	time_prev = time_curr;
-
 	// Time
-	data.m_time = time;
+	m_time += deltaTime;
+	data.m_time = m_time;
 
 	// World
-	Mat4x4 temp{};
-	temp = Mat4x4::identity();
-	temp = temp * Mat4x4::scale(Vec3{ 0.5f, 0.5f, 0.5f });
-	temp = temp * Mat4x4::rotateX(time / 1000.0f);
-	temp = temp * Mat4x4::rotateY(time / 1000.0f);
-	temp = temp * Mat4x4::rotateZ(time / 1000.0f);
-	temp = temp * Mat4x4::translation(Vec3{ 0.0f, 0.0f, 0.0f });
-	data.m_world = temp;
+	Mat4x4 worldMat{};
+	worldMat = Mat4x4::identity();
+	worldMat = worldMat * Mat4x4::scale(cubes[index].scale);
+	worldMat = worldMat * Mat4x4::translation(cubes[index].position);
+	data.m_world = worldMat;
 
 	// View
-	data.m_view = Mat4x4::identity();
+	Mat4x4 worldCam{};
+	worldCam = Mat4x4::identity();
+
+	m_inputSystem->setCursorLocked(true);
+	rotx += m_inputSystem->getMouseDelta().y;
+	roty += m_inputSystem->getMouseDelta().x;
+
+	worldCam = worldCam * Mat4x4::rotateX(rotx / 100.0f);
+	worldCam = worldCam * Mat4x4::rotateY(roty / 100.0f);
+	worldCam = worldCam * Mat4x4::rotateZ(rotz / 100.0f);
+
+	f32 speed = 2.5f;
+	if (m_inputSystem->isKeyDown(KeyCode::W)) forward += deltaTime * speed;
+	if (m_inputSystem->isKeyDown(KeyCode::S)) forward -= deltaTime * speed;
+	//if (m_inputSystem->isKeyDown(KeyCode::D)) right += deltaTime * speed;
+	//if (m_inputSystem->isKeyDown(KeyCode::A)) right -= deltaTime * speed;
+
+
+	Vec3 tempWorldCamPos({ m_TempWorldCam.row(3).x, m_TempWorldCam.row(3).y, m_TempWorldCam.row(3).z });
+	Vec3 camForward({ worldCam.row(2).x, worldCam.row(2).y, worldCam.row(2).z });
+	//Vec3 camRight({ worldCam.row(0).x, worldCam.row(0).y, worldCam.row(0).z });
+	//camRight *= right;
+
+	Vec3 newPos = tempWorldCamPos + camForward * forward;
+	//newPos += camRight;
+	worldCam = worldCam * Mat4x4::translation(newPos);
+	//worldCam = worldCam * Mat4x4::translation(Vec3{ 0.0f, 0.0f, -2.0f });
+	worldCam = Mat4x4::inverse(worldCam);
+
+	data.m_view = worldCam;
 
 	// Orthographic View
+	/*
 	int zzWindowDisplayHeight = 400;	// Originally 720
 	int zzWindowDisplayWidth = zzWindowDisplayHeight * 1.78;	// Originally 1280
 	data.m_projection = Mat4x4::orthoLH
@@ -205,4 +239,21 @@ void GraphicsEngine::updateConstantData(ConstantData& data)
 		-4.0f,
 		4.0f
 	);
+	*/
+
+	// Perspective View
+	int zzWindowDisplayHeight = 400;	// Originally 720
+	int zzWindowDisplayWidth = zzWindowDisplayHeight * 1.78;	// Originally 1280
+	data.m_projection = Mat4x4::perspectiveFovLH
+	(
+		1.57f,
+		(f32)zzWindowDisplayWidth / (f32)zzWindowDisplayHeight,
+		0.1f,
+		100.0f
+	);
+}
+
+std::vector<Cube>* GraphicsEngine::getCubes()
+{
+	return &cubes;
 }

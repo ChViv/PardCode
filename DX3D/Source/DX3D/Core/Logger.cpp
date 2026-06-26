@@ -1,16 +1,16 @@
-#include <DX3D/Core/Logger.h>
+#include <JAZZY/Core/Logger.h>
 #include <iostream>
-dx3d::Logger::Logger(LogLevel loglevel) : m_logLevel(loglevel)
+jazzy::Logger::Logger(LogLevel loglevel) : m_logLevel(loglevel)
 {
-	std::clog << "CHEN GDENG03 " << "\n";
+	std::clog << " Logger | Zivv Elomina | JAZZY Engine | GDENG03 " << "\n";
 	std::clog << "------------------------------------------------" << "\n";
 }
 
-dx3d::Logger::~Logger()
+jazzy::Logger::~Logger()
 {
 }
 
-void dx3d::Logger::log(LogLevel level, const char* message)
+void jazzy::Logger::log(LogLevel level, const char* message)
 {
 	auto logLevelToString = [](LogLevel level)
 		{
@@ -24,5 +24,5 @@ void dx3d::Logger::log(LogLevel level, const char* message)
 		};
 
 	if (level > m_logLevel) return;
-	std::clog << "[DX3D " << logLevelToString(level) << "]: " << message << "\n";
+	std::clog << "[JAZZY " << logLevelToString(level) << "]: " << message << "\n";
 }

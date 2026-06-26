@@ -1,8 +1,9 @@
 #pragma once
-#include <DX3D/Core/Base.h>
-#include <DX3D/Core/Core.h>
+#include <chrono>
+#include <JAZZY/Core/Base.h>
+#include <JAZZY/Core/Core.h>
 
-namespace dx3d
+namespace jazzy
 {
 	class Game : public Base
 	{
@@ -15,9 +16,15 @@ namespace dx3d
 	private:
 		void onInternalUpdate();
 	private:
+		// The order is important. What gets initialized and deallocated is based on a stack
+		// GraphicsEngine is initialized first and the window last. When deallocated, the window is first, graphics engine last
 		std::unique_ptr<Logger> m_LoggerPtr{};
 		std::unique_ptr<GraphicsEngine> m_graphicsEngine{};
 		std::unique_ptr<Display> m_display{};
+		InputSystemPtr m_inputSystem{};
 		bool m_isRunning{ true };
+
+		// Time
+		std::chrono::steady_clock::time_point m_previousTime{};
 	};
 }

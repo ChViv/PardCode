@@ -1,8 +1,8 @@
 #pragma once
-#include <DX3D/Core/Logger.h>
+#include <JAZZY/Core/Logger.h>
 #include <d3d11.h>
 
-namespace dx3d
+namespace jazzy
 {
 	namespace GraphicsLogUtils
 	{
@@ -31,5 +31,5 @@ namespace dx3d
 #define DX3DGraphicsCheckShaderCompile(hr, errorBlob)\
 {\
 	auto res = (hr);\
-	dx3d::GraphicsLogUtils::CheckShaderCompile(getLogger(), res, errorBlob);\
+	jazzy::GraphicsLogUtils::CheckShaderCompile(getLogger(), res, errorBlob);\
 }

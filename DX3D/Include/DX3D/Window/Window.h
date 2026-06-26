@@ -1,8 +1,8 @@
 #pragma once
-#include <DX3D/Core/Base.h>
-#include <DX3D/Core/Common.h>
+#include <JAZZY/Core/Base.h>
+#include <JAZZY/Core/Common.h>
 
-namespace dx3d
+namespace jazzy
 {
 	class Window : public Base
 	{

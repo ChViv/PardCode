@@ -1,6 +1,6 @@
-#include <DX3D/Graphics/IndexBuffer.h>
+#include <JAZZY/Graphics/IndexBuffer.h>
 
-dx3d::IndexBuffer::IndexBuffer(const IndexBufferDesc& desc, const GraphicsResourceDesc& gDesc) :
+jazzy::IndexBuffer::IndexBuffer(const IndexBufferDesc& desc, const GraphicsResourceDesc& gDesc) :
 	GraphicsResource(gDesc), m_indexListSize(desc.indexListSize)
 {
 	if (!desc.indexList) DX3DLogThrowInvalidArg("No index list provided.");
@@ -25,7 +25,7 @@ dx3d::IndexBuffer::IndexBuffer(const IndexBufferDesc& desc, const GraphicsResour
 	);
 }
 
-dx3d::ui32 dx3d::IndexBuffer::getIndexListSize() const noexcept
+jazzy::ui32 jazzy::IndexBuffer::getIndexListSize() const noexcept
 {
 	return m_indexListSize;
 }

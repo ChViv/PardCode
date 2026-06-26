@@ -1,40 +1,39 @@
 #pragma once
-#include <DX3D/Core/Core.h>
-#include <DX3D/Core/Base.h>
-#include <DX3D/Math/Vec3.h>
-#include <DX3D/Math/Vec4.h>
-#include <DX3D/Math/Triangle.h>
-#include <DX3D/Math/Quad.h>
+#include <JAZZY/Core/Core.h>
+#include <JAZZY/Core/Base.h>
+#include <JAZZY/Math/Vec3.h>
+#include <JAZZY/Math/Vec4.h>
+#include <JAZZY/Math/Mat4x4.h>
 #include <vector>
 
-#include "DX3D/Math/Mat4x4.h"
+#include <JAZZY/Cube.h>
 
-namespace dx3d
+namespace jazzy
 {
+	// Final means no class can derive from GraphicsEngine class
 	class GraphicsEngine final : public Base
 	{
 	public:
-		explicit GraphicsEngine(const GraphicsEngineDesc& desc);
+		GraphicsEngine(const GraphicsEngineDesc& desc);
 		virtual ~GraphicsEngine() override;
 
 		GraphicsDevice& getGraphicsDevice() noexcept;
 
-		void render(SwapChain& swapChain);
+		void render(f32 deltaTime, SwapChain& swapChain);
 
+		// DepthTest Method
+		std::vector<Cube>* getCubes();
+		// Debug things
 	private:
-		ui32 time{};
-		ui32 time_prev{};
-		ui32 time_curr{};
-		ui32 delta_time{};
-
 		struct alignas(16) ConstantData
 		{
 			Mat4x4 m_world{};
 			Mat4x4 m_view{};
 			Mat4x4 m_projection{};
-			ui32 m_time;
+			f32 m_time;
 		};
-
+	private:
+		void updateConstantData(f32 deltaTime, ConstantData& data, ui32 index);
 	private:
 		std::shared_ptr<GraphicsDevice> m_graphicsDevice{};
 		DeviceContextPtr m_deviceContext{};
@@ -42,7 +41,19 @@ namespace dx3d
 		VertexBufferPtr m_vb{};
 		ConstantBufferPtr m_cb{};
 		IndexBufferPtr m_ib{};
+		// TEMPORARY DEPENDENCY FOR DEBUGGING
+		f32 m_time{ 0.0f };
+		InputSystemPtr m_inputSystem{};
+		f32 rotx{};
+		f32 roty{};
+		f32 rotz{};
 
-		void updateConstantData(ConstantData& data);
+		// DepthTest Members
+		std::vector<Cube> cubes;
+
+		// Temporary Camera Object
+		Mat4x4 m_TempWorldCam{};
+		f32 forward{ -2.0f };
+		f32 right{};
 	};
 }

@@ -1,11 +1,11 @@
-#include <DX3D/Graphics/DeviceContext.h>
-#include <DX3D/Graphics/SwapChain.h>
-#include <DX3D/Graphics/GraphicsPipelineState.h>
-#include <DX3D/Graphics/VertexBuffer.h>
-#include <DX3D/Graphics/ConstantBuffer.h>
-#include <DX3D/Graphics/IndexBuffer.h>
+#include <JAZZY/Graphics/DeviceContext.h>
+#include <JAZZY/Graphics/SwapChain.h>
+#include <JAZZY/Graphics/GraphicsPipelineState.h>
+#include <JAZZY/Graphics/VertexBuffer.h>
+#include <JAZZY/Graphics/ConstantBuffer.h>
+#include <JAZZY/Graphics/IndexBuffer.h>
 
-dx3d::DeviceContext::DeviceContext(const GraphicsResourceDesc& gDesc) : GraphicsResource(gDesc)
+jazzy::DeviceContext::DeviceContext(const GraphicsResourceDesc& gDesc) : GraphicsResource(gDesc)
 {
 	DX3DGraphicsLogThrowOnFail
 	(
@@ -14,22 +14,26 @@ dx3d::DeviceContext::DeviceContext(const GraphicsResourceDesc& gDesc) : Graphics
 	);
 }
 
-void dx3d::DeviceContext::clearAndSetBackBuffer(const SwapChain& swapChain, const Vec4& color)
+void jazzy::DeviceContext::clearAndSetBackBuffer(const SwapChain& swapChain, const Vec4& color)
 {
 	f32 fColor[] = { color.x, color.y, color.z, color.w };
 	auto rtv = swapChain.m_rtv.Get();
+	auto dsv = swapChain.m_dsv.Get();
+
 	m_context->ClearRenderTargetView(rtv, fColor);
 	m_context->OMSetRenderTargets(1, &rtv, nullptr);
+	m_context->ClearDepthStencilView(dsv, D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1, 0);
+	m_context->OMSetRenderTargets(1, &rtv, dsv);
 }
 
-void dx3d::DeviceContext::setGraphicsPipelineState(const GraphicsPipelineState& pipeline)
+void jazzy::DeviceContext::setGraphicsPipelineState(const GraphicsPipelineState& pipeline)
 {
 	m_context->IASetInputLayout(pipeline.m_layout.Get());
 	m_context->VSSetShader(pipeline.m_vs.Get(), nullptr, 0);
 	m_context->PSSetShader(pipeline.m_ps.Get(), nullptr, 0);
 }
 
-void dx3d::DeviceContext::setVertexBuffer(const VertexBuffer& buffer)
+void jazzy::DeviceContext::setVertexBuffer(const VertexBuffer& buffer)
 {
 	auto stride = buffer.m_vertexSize;
 	auto buf = buffer.m_buffer.Get();
@@ -44,7 +48,8 @@ void dx3d::DeviceContext::setVertexBuffer(const VertexBuffer& buffer)
 	);
 }
 
-void dx3d::DeviceContext::setIndexBuffer(const IndexBuffer& buffer)
+void jazzy::DeviceContext::setIndexBuffer(const IndexBuffer& buffer)
+{
 	m_context->IASetIndexBuffer
 	(
 		buffer.m_buffer.Get(),
@@ -53,7 +58,7 @@ void dx3d::DeviceContext::setIndexBuffer(const IndexBuffer& buffer)
 	);
 }
 
-void dx3d::DeviceContext::setViewportSize(const Rect& size)
+void jazzy::DeviceContext::setViewportSize(const Rect& size)
 {
 	D3D11_VIEWPORT vp{};
 	vp.Width = static_cast<f32>(size.width);
@@ -68,19 +73,19 @@ void dx3d::DeviceContext::setViewportSize(const Rect& size)
 	);
 }
 
-void dx3d::DeviceContext::drawTriangleList(ui32 vertexCount, ui32 startVertexLocation)
+void jazzy::DeviceContext::drawTriangleList(ui32 vertexCount, ui32 startVertexLocation)
 {
 	m_context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);	// Tells the GPU how to interpret the vertex data
 	m_context->Draw(vertexCount, startVertexLocation);	// Executes Graphics Pipeline
 }
 
-void dx3d::DeviceContext::drawIndexedTriangleList(ui32 indexCount, ui32 startVertexIndex, ui32 startIndexLocation)
+void jazzy::DeviceContext::drawIndexedTriangleList(ui32 indexCount, ui32 startVertexIndex, ui32 startIndexLocation)
 {
 	m_context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);	// Tells the GPU how to interpret the vertex data
 	m_context->DrawIndexed(indexCount, startVertexIndex, startIndexLocation);	// Executes Graphics Pipeline
 }
 
-void dx3d::DeviceContext::updateConstantBuffer(const ConstantBuffer& buffer, const void* data)
+void jazzy::DeviceContext::updateConstantBuffer(const ConstantBuffer& buffer, const void* data)
 {
 	if (!data)
 	{
@@ -101,7 +106,7 @@ void dx3d::DeviceContext::updateConstantBuffer(const ConstantBuffer& buffer, con
 	m_context->Unmap(buf, 0);
 }
 
-void dx3d::DeviceContext::setConstantBuffer(const ConstantBuffer& buffer)
+void jazzy::DeviceContext::setConstantBuffer(const ConstantBuffer& buffer)
 {
 	auto buf = buffer.m_buffer.Get();
 	m_context->VSSetConstantBuffers
