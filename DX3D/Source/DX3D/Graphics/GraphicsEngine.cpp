@@ -242,12 +242,12 @@ void GraphicsEngine::updateConstantData(f32 deltaTime, ConstantData& data, ui32 
 	*/
 
 	// Perspective View
-	int zzWindowDisplayHeight = 400;	// Originally 720
-	int zzWindowDisplayWidth = zzWindowDisplayHeight * 1.78;	// Originally 1280
+	int WindowDisplayHeight = 400;	// Originally 720
+	int WindowDisplayWidth = WindowDisplayHeight * 1.78;	// Originally 1280
 	data.m_projection = Mat4x4::perspectiveFovLH
 	(
 		1.57f,
-		(f32)zzWindowDisplayWidth / (f32)zzWindowDisplayHeight,
+		(f32)WindowDisplayWidth / (f32)WindowDisplayHeight,
 		0.1f,
 		100.0f
 	);

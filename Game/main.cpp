@@ -6,12 +6,12 @@
 
 int main()
 {
-	int zzWindowDisplayHeight = 400;	// Originally 720
-	int zzWindowDisplayWidth = zzWindowDisplayHeight * 1.78;	// Originally 1280
+	int WindowDisplayHeight = 400;	// Originally 720
+	int WindowDisplayWidth = WindowDisplayHeight * 1.78;	// Originally 1280
 
 	try
 	{
-		dx3d::Game game({ {zzWindowDisplayWidth, zzWindowDisplayHeight}, dx3d::Logger::LogLevel::Info });
+		dx3d::Game game({ {WindowDisplayWidth, WindowDisplayHeight}, dx3d::Logger::LogLevel::Info });
 		game.run();
 	}
 	catch (const std::runtime_error&)

@@ -1,5 +1,5 @@
 #pragma once
-namespace DX3D
+namespace dx3d
 {
 	class Logger final
 	{

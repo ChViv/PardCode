@@ -1,7 +1,8 @@
 #pragma once
 #include <DX3D/Graphics/GraphicsResource.h>
+#include <DX3D/Core/Logger.h>
 
-namespace DX3Ddx3d
+namespace dx3d
 {
 	class IndexBuffer final : public GraphicsResource
 	{

@@ -3,7 +3,6 @@
 #include <stdexcept>
 
 #include "DX3D/Core/Logger.h"
-#include "DX3D/Core/Logger.h"
 
 static LRESULT CALLBACK WindowProcedure(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
 {
@@ -52,7 +51,7 @@ dx3d::Window::Window(const WindowDesc& desc): Base(desc.base), m_size(desc.size)
 		{
 			WNDCLASSEX wc{}; // Brace Initialization
 			wc.cbSize = sizeof(WNDCLASSEX);
-			wc.lpszClassName = L"DX3DWindow";
+			wc.lpszClassName = "DX3DWindow";
 			wc.lpfnWndProc = &WindowProcedure;
 			return RegisterClassEx(&wc);
 		};
@@ -73,7 +72,7 @@ dx3d::Window::Window(const WindowDesc& desc): Base(desc.base), m_size(desc.size)
 	m_handle = CreateWindowEx(
 		NULL,
 		MAKEINTATOM(windowClassId),
-		L"CHEN | DX3D Game Engine", 
+		"CHEN | DX3D Game Engine", 
 		WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU,
 		CW_USEDEFAULT,
 		CW_USEDEFAULT,

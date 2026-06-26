@@ -2,7 +2,7 @@
 #include <iostream>
 dx3d::Logger::Logger(LogLevel loglevel) : m_logLevel(loglevel)
 {
-	std::clog << " Logger | Zivv Elomina | dx3d Engine | GDENG03 " << "\n";
+	std::clog << "Chen, Vivian Angel ENG03 " << "\n";
 	std::clog << "------------------------------------------------" << "\n";
 }
 
