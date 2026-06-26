@@ -7,7 +7,7 @@ dx3d::IndexBuffer::IndexBuffer(const IndexBufferDesc& desc, const GraphicsResour
 	if (!desc.indexListSize) DX3DLogThrowInvalidArg("Index list size must be non-zero.");
 
 	D3D11_BUFFER_DESC buffDesc{};
-	buffDesc.ByteWidth = sizeof(ui32) * desc.indexListSize;	// Integer is 4 bytes
+	buffDesc.ByteWidth = sizeof(ui32) * desc.indexListSize;	
 	buffDesc.BindFlags = D3D11_BIND_INDEX_BUFFER;
 
 	D3D11_SUBRESOURCE_DATA initData{};
@@ -17,7 +17,7 @@ dx3d::IndexBuffer::IndexBuffer(const IndexBufferDesc& desc, const GraphicsResour
 	(
 		m_device.CreateBuffer
 		(
-			&buffDesc, // Allocate memory in GPU for the buffer
+			&buffDesc,
 			&initData,
 			&m_buffer
 		),

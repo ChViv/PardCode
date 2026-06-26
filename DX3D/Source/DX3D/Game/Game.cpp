@@ -5,6 +5,7 @@
 #include<DX3D/Game/Display.h>
 #include <DX3D/Input/InputSystem.h>
 #include <DX3D/Cube.h>
+#include <DX3D/Math/Rand.h>
 
 dx3d::Game::Game(const GameDesc& desc) :
 	Base({ *std::make_unique<Logger>(desc.logLevel).release() }),

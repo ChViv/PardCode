@@ -38,27 +38,6 @@ dx3d::VertexShaderSignature::VertexShaderSignature(const VertexShaderSignatureDe
 		);
 	}
 
-	//constexpr D3D11_INPUT_ELEMENT_DESC elements[] =
-	//{
-	//	{
-	//		"POSITION",						// Semantic Name
-	//		0,								// Semantic Index
-	//		DXGI_FORMAT_R32G32B32_FLOAT,	// Format of the this attribute
-	//		0,								// Which vertex buffer this element comes from
-	//		0,								// Byte offset of this element from the start of the vertex buffer
-	//		D3D11_INPUT_PER_VERTEX_DATA,	// 
-	//		0								//
-	//	},
-	//	{
-	//		"COLOR",						// Semantic Name
-	//		0,								// Semantic Index
-	//		DXGI_FORMAT_R32G32B32_FLOAT,	// Format of the this attribute
-	//		0,								// Which vertex buffer this element comes from
-	//		12,								// Float = 4 bytes, position = 3 floats, byte offset = 4 * 3 Byte offset of this element from the start of the vertex buffer
-	//		D3D11_INPUT_PER_VERTEX_DATA,	// 
-	//		0								// Instance data step rate?
-	//	}
-	//};
 	for (auto i : std::views::iota(0u, m_numElements))
 	{
 		auto param = params[i];

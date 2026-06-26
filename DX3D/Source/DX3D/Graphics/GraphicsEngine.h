@@ -24,6 +24,8 @@ namespace dx3d
 		// DepthTest Method
 		std::vector<Cube>* getCubes();
 		// Debug things
+
+		Vec3 lerp(const Vec3& a, const Vec3& b, float t);
 	private:
 		struct alignas(16) ConstantData
 		{
@@ -55,5 +57,7 @@ namespace dx3d
 		Mat4x4 m_TempWorldCam{};
 		f32 forward{ -2.0f };
 		f32 right{};
+
+		float m_lerp = 0.0f;
 	};
 }

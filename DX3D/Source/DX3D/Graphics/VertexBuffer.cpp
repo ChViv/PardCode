@@ -18,7 +18,7 @@ dx3d::VertexBuffer::VertexBuffer(const VertexBufferDesc& desc, const GraphicsRes
 	(
 		m_device.CreateBuffer
 		(
-			&buffDesc, // Allocate memory in GPU for the buffer
+			&buffDesc, 
 			&initData,
 			&m_buffer
 		),

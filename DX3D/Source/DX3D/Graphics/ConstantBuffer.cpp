@@ -15,8 +15,8 @@ dx3d::ConstantBuffer::ConstantBuffer(const ConstantBufferDesc& desc, const Graph
 	(
 		m_device.CreateBuffer
 		(
-			&buffDesc, // Allocate memory in GPU for the buffer
-			(desc.buffer) ? &initData : nullptr, // Ternary operator, if there is a descbuffer, use te initData, otherwise, nullptr
+			&buffDesc, 
+			(desc.buffer) ? &initData : nullptr,
 			&m_buffer
 		),
 		"CreateBuffer Constant Buffer failed."

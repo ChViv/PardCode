@@ -10,6 +10,7 @@
 #include <fstream>
 #include <string>
 #include <ranges>
+#include <random>
 
 using namespace dx3d;
 
@@ -66,16 +67,6 @@ dx3d::GraphicsEngine::GraphicsEngine(const GraphicsEngineDesc& desc) : Base(desc
 	// Graphics Pipeline
 	m_pipeline = device.createGraphicsPipelineState({ *vsSig, *ps });
 
-	/*
-	Vertex vertexList[] =
-	{
-	{ {0, 0.5f, 0.0f }, {1, 0, 0, 1} },
-	{{0.35f, -0.5f, 0.0f}, {0, 1, 0, 1} },
-	{{-0.35, -0.5f, 0.0f}, {0, 0, 1, 1} }
-	};
-	*/
-
-	// Vertex Buffer
 	f32 cubeSize = 0.25f;
 	Vec4 orange(0.99f, 0.16f, 0.01f, 1.0f);
 	Vec4 mikublue(0.03f, 0.74f, 0.68f, 1.0f);
@@ -83,16 +74,17 @@ dx3d::GraphicsEngine::GraphicsEngine(const GraphicsEngineDesc& desc) : Base(desc
 	Vec4 black(0.0f, 0.0f, 0.0f, 1.0f);
 	Vertex vertexList[] =
 	{
-		// Front Face
-		Vertex{ {-cubeSize,-cubeSize,-cubeSize}, orange},
-		Vertex{ {-cubeSize,cubeSize,-cubeSize}, mikublue},
-		Vertex{ {cubeSize,cubeSize,-cubeSize}, ourple},
-		Vertex{ {cubeSize,-cubeSize,-cubeSize}, black},
+		// Front
+		{{-cubeSize,-cubeSize,-cubeSize}, {1.0f, 1.0f, 1.0f, 1.0f}},
+		{{-cubeSize, cubeSize,-cubeSize}, {1.0f, 1.0f, 1.0f, 1.0f}},
+		{{ cubeSize, cubeSize,-cubeSize}, {1.0f, 1.0f, 1.0f, 1.0f}},
+		{{ cubeSize,-cubeSize,-cubeSize}, {1.0f, 1.0f, 1.0f, 1.0f}},
+
 		// Back Face
-		Vertex{ {cubeSize,-cubeSize,cubeSize}, orange},
-		Vertex{ {cubeSize,cubeSize,cubeSize}, mikublue},
-		Vertex{ {-cubeSize,cubeSize,cubeSize}, ourple},
-		Vertex{ {-cubeSize,-cubeSize,cubeSize}, black}
+		{{ cubeSize,-cubeSize, cubeSize}, {1.0f, 1.0f, 1.0f, 1.0f}},
+		{{ cubeSize, cubeSize, cubeSize}, {1.0f, 1.0f, 1.0f, 1.0f}},
+		{{-cubeSize, cubeSize, cubeSize}, {1.0f, 1.0f, 1.0f, 1.0f}},
+		{{-cubeSize,-cubeSize, cubeSize}, {1.0f, 1.0f, 1.0f, 1.0f}}
 	};
 
 	m_vb = device.createVertexBuffer({ vertexList, std::size(vertexList), sizeof(Vertex) });
@@ -127,6 +119,40 @@ dx3d::GraphicsEngine::GraphicsEngine(const GraphicsEngineDesc& desc) : Base(desc
 	// TEMPORARY DEPENDECY FOR DEBUGGING
 	m_inputSystem = desc.inputSystem;
 	m_TempWorldCam = Mat4x4::translation(Vec3(0.0f, 0.0f, -2.0f));
+
+	//cubes.push_back(Cube(
+	//	Vec3(0.0f, 0.9f, 0.0f),
+	//	Vec3(1.0f, 1.0f, 1.0f)
+	//));
+
+	//cubes.push_back(Cube(
+	//	Vec3(-1.5f, 2.0f, 0.0f),
+	//	Vec3(1.0f, 1.0f, 1.0f)
+	//));
+
+	//cubes.push_back(Cube(
+	//	Vec3(-1.5f, 3.0f, -2.0f),
+	//	Vec3(1.0f, 1.0f, 1.0f)
+	//));
+	////plane 
+	//cubes.push_back(Cube(
+	//	Vec3(0.0f, 3.4f, -4.0f),
+	//	Vec3(20.0f, 0.01f, 20.0f)
+	//));
+
+	/*std::random_device rd;
+	std::mt19937 rand(rd());
+	std::uniform_real_distribution<float> pos(-5.0f, 5.0f);
+
+	for (int i = 0; i < 50; i++)
+	{
+		cubes.emplace_back(
+			Vec3(pos(rand), pos(rand), pos(rand)),
+			Vec3(1.0f, 1.0f, 1.0f)
+		);
+	}*/
+
+
 }
 
 dx3d::GraphicsEngine::~GraphicsEngine()
@@ -161,6 +187,30 @@ void GraphicsEngine::render(f32 deltaTime, SwapChain& swapChain)
 		// Declare Constant Data
 		ConstantData data{};
 
+		/*cubes[i].rotation.x += deltaTime * 0.5f;
+		cubes[i].rotation.y += deltaTime;
+		cubes[i].rotation.z += deltaTime * 0.25f;*/
+
+		//m_lerp += deltaTime * 0.5f;
+
+		//if (m_lerp > 1.0f)
+		//	m_lerp = 1.0f;
+
+		//// from 0,0,0, to 1,1,0
+		//Vec3 position;
+		//position.x = 0.0f + (1.0f - 0.0f) * m_lerp;
+		//position.y = 0.0f + (1.0f - 0.0f) * m_lerp;
+		//position.z = 0.0f;
+
+		////from 1 to 0.25
+		//Vec3 scale;
+		//scale.x = 1.0f + (.25f - 1.0f) * m_lerp;
+		//scale.y = 1.0f + (.25f - 1.0f) * m_lerp;
+		//scale.z = 1.0f + (.25f - 1.0f) * m_lerp;
+
+		//cubes[i].position = position;
+		//cubes[i].scale = scale;
+
 		// Feed Constant data with updated values
 		updateConstantData(deltaTime, data, i);
 		//DX3DLogInfo((std::to_string(deltaTime)).c_str());
@@ -191,6 +241,11 @@ void GraphicsEngine::updateConstantData(f32 deltaTime, ConstantData& data, ui32 
 	Mat4x4 worldMat{};
 	worldMat = Mat4x4::identity();
 	worldMat = worldMat * Mat4x4::scale(cubes[index].scale);
+
+	/*worldMat = worldMat * Mat4x4::rotateX(cubes[index].rotation.x);
+	worldMat = worldMat * Mat4x4::rotateY(cubes[index].rotation.y);
+	worldMat = worldMat * Mat4x4::rotateZ(cubes[index].rotation.z);*/
+
 	worldMat = worldMat * Mat4x4::translation(cubes[index].position);
 	data.m_world = worldMat;
 
@@ -209,41 +264,20 @@ void GraphicsEngine::updateConstantData(f32 deltaTime, ConstantData& data, ui32 
 	f32 speed = 2.5f;
 	if (m_inputSystem->isKeyDown(KeyCode::W)) forward += deltaTime * speed;
 	if (m_inputSystem->isKeyDown(KeyCode::S)) forward -= deltaTime * speed;
-	//if (m_inputSystem->isKeyDown(KeyCode::D)) right += deltaTime * speed;
-	//if (m_inputSystem->isKeyDown(KeyCode::A)) right -= deltaTime * speed;
 
 
 	Vec3 tempWorldCamPos({ m_TempWorldCam.row(3).x, m_TempWorldCam.row(3).y, m_TempWorldCam.row(3).z });
 	Vec3 camForward({ worldCam.row(2).x, worldCam.row(2).y, worldCam.row(2).z });
-	//Vec3 camRight({ worldCam.row(0).x, worldCam.row(0).y, worldCam.row(0).z });
-	//camRight *= right;
 
 	Vec3 newPos = tempWorldCamPos + camForward * forward;
-	//newPos += camRight;
 	worldCam = worldCam * Mat4x4::translation(newPos);
-	//worldCam = worldCam * Mat4x4::translation(Vec3{ 0.0f, 0.0f, -2.0f });
 	worldCam = Mat4x4::inverse(worldCam);
 
 	data.m_view = worldCam;
 
-	// Orthographic View
-	/*
-	int zzWindowDisplayHeight = 400;	// Originally 720
-	int zzWindowDisplayWidth = zzWindowDisplayHeight * 1.78;	// Originally 1280
-	data.m_projection = Mat4x4::orthoLH
-	(
-		// Instead of hardcoding the resolution, find a way to access the Rect size{} of the window
-		// Moreover, you can also update the Rect size{} by using the Window msg to check whenever the size is changed and update the Rect size accordingly
-		zzWindowDisplayWidth / 400.0f,
-		zzWindowDisplayHeight / 400.0f,
-		-4.0f,
-		4.0f
-	);
-	*/
-
 	// Perspective View
-	int WindowDisplayHeight = 400;	// Originally 720
-	int WindowDisplayWidth = WindowDisplayHeight * 1.78;	// Originally 1280
+	int WindowDisplayHeight = 400;	
+	int WindowDisplayWidth = WindowDisplayHeight * 1.78;	
 	data.m_projection = Mat4x4::perspectiveFovLH
 	(
 		1.57f,

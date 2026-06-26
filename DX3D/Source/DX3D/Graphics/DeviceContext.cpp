@@ -40,10 +40,10 @@ void dx3d::DeviceContext::setVertexBuffer(const VertexBuffer& buffer)
 	auto offset = 0u;	// 'u' indicates it is an unsigned integer
 	m_context->IASetVertexBuffers
 	(
-		0,	// Starting point of the buffer. There can be multiple buffers with different starting points
-		1,	// The number of buffers
+		0,	
+		1,	
 		&buf,
-		&stride,	// stride represents the length of a single vertex in bytes
+		&stride,	
 		&offset
 	);
 }
@@ -63,26 +63,26 @@ void dx3d::DeviceContext::setViewportSize(const Rect& size)
 	D3D11_VIEWPORT vp{};
 	vp.Width = static_cast<f32>(size.width);
 	vp.Height = static_cast<f32>(size.height);
-	vp.MinDepth = 0.0f;		// Near Clipping Plane
-	vp.MaxDepth = 1.0f;		// Far Clipping Plane
+	vp.MinDepth = 0.0f;		
+	vp.MaxDepth = 1.0f;		
 
 	m_context->RSSetViewports
 	(
-		1,		// Number of viewports
+		1,		
 		&vp
 	);
 }
 
 void dx3d::DeviceContext::drawTriangleList(ui32 vertexCount, ui32 startVertexLocation)
 {
-	m_context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);	// Tells the GPU how to interpret the vertex data
-	m_context->Draw(vertexCount, startVertexLocation);	// Executes Graphics Pipeline
+	m_context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);	
+	m_context->Draw(vertexCount, startVertexLocation);	
 }
 
 void dx3d::DeviceContext::drawIndexedTriangleList(ui32 indexCount, ui32 startVertexIndex, ui32 startIndexLocation)
 {
-	m_context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);	// Tells the GPU how to interpret the vertex data
-	m_context->DrawIndexed(indexCount, startVertexIndex, startIndexLocation);	// Executes Graphics Pipeline
+	m_context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);	
+	m_context->DrawIndexed(indexCount, startVertexIndex, startIndexLocation);
 }
 
 void dx3d::DeviceContext::updateConstantBuffer(const ConstantBuffer& buffer, const void* data)
@@ -111,14 +111,14 @@ void dx3d::DeviceContext::setConstantBuffer(const ConstantBuffer& buffer)
 	auto buf = buffer.m_buffer.Get();
 	m_context->VSSetConstantBuffers
 	(
-		0,	// Starting point of the buffer. There can be multiple buffers with different starting points
-		1,	// The number of buffers
+		0,	
+		1,	
 		&buf
 	);
 	m_context->PSSetConstantBuffers
 	(
-		0,	// Starting point of the buffer. There can be multiple buffers with different starting points
-		1,	// The number of buffers
+		0,	
+		1,	
 		&buf
 	);
 }

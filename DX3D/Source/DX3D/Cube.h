@@ -7,7 +7,9 @@ namespace dx3d
 	{
 	public:
 		Cube(Vec3 _position, Vec3 _scale);
+
 		Vec3 position{};
 		Vec3 scale{};
+		Vec3 rotation{};
 	};
 }

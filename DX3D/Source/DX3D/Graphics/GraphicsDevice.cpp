@@ -24,18 +24,16 @@ dx3d::GraphicsDevice::GraphicsDevice(const GraphicsDeviceDesc& desc) : Base(desc
 	(
 		D3D11CreateDevice
 		(
-			NULL,						// XGI Adaptor represents graphics card GPU installed in the system
-			D3D_DRIVER_TYPE_HARDWARE,	// if XGI adaptor is null, and this is hardware, it will pick the primary GPU
-			NULL,						// Handle to a dll a custom software rastorizer but we arent using in this case
+			NULL,						
+			D3D_DRIVER_TYPE_HARDWARE,	
+			NULL,						
 			createDeviceFlags,
-			NULL,						// A pointer to an array of feature level, if NULL, the system will pick the best one
-			0,							// Size of the previous array, since NULL, 0
-			D3D11_SDK_VERSION,			// Microsoft safety check to prevent mismatch of versions and to make sure the versions match the direct3d runtime  
-
-			// OUTPUT STUFF BELOW
-			&m_d3dDevice,				// Expects a double pointer, this is where all the resources like buffer are
+			NULL,						
+			0,							
+			D3D11_SDK_VERSION,			
+			&m_d3dDevice,				
 			&featureLevel,
-			&m_d3dContext				// Expects a double pointer, this is where all the resources like buffer are
+			&m_d3dContext				
 		),
 		"Direct3D initialization failed."
 	);
